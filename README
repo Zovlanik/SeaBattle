@@ -1,21 +1,21 @@
- Консольная игра "Морской бой" по классическим правилам.
- Игрок устанавливает свои корабли:
- - один четырехпалубный
- - два трёхпалубных
- - три двухпалубных
- - четыре однопалубных
- Корабли нельзя гнуть, можно поворачивать.
- Игра начинается автоматически, когда игрок расставит все свои корабли.
- Расставляются корабли по маске: <ориентация><размер корабля><координата>
- <ориентация> - 1 = вертикально, 2 = горизонтально
- <размер корабля> -  1 = однопалубник, 2 = двухпалубник, 3 = трехпалубник, 4 = четырехпалубник
- <координата> - координата первой ячейки корабля в формате <буква><цифра>.
+Console game "Sea battle" according to the classical rules.
+ The player sets his ships:
+ - one four-deck
+ - two three-deck
+ - three two-deck
+ - four single deck
+ Ships can not be bent, but you can turn them.
+ The game starts automatically when the player places all ships.
+ Ships are arranged by mask: <orientation> <ship size> <coordinate>
+ <orientation> - 1 = vertically, 2 = horizontally
+ <ship size> - 1 = one-deck, 2 = two-deck, 3 = three-deck, 4 = four-deck
+ <coordinate> - coordinate of the first cell of the ship in the format <literal> <number>.
 
-Например: 1 2 А5 = такая команда поставит вертикально двухпалубник на точки А5 и А6
-2 4 Б6 = такая команда поставит горизонтально четырёхпалубник на точки Б6 В6 Г6 и Д6
+For example: 1 2 A5 = such a command will vertically put a two-deck ship at points A5 and A6
+2 4 Б6 = such a command will put horizontally a four-deck ship at points Б6 В6 Г6 and Д6
 
-После расстановки кораблей начинается непосредственно стрельба. Для стрельбы нужно вводить координату ячейки поля компьютера в формате <буква><цифра>.
-Например: А1, к10, б3 и т.п.
+After the arrangement of the ships, firing begins directly. For shooting, you need to enter the cell coordinate of the computer field in the format <letter> <digit>.
+For example: A1, к10, б3, etc.
 
 
       Поле игрока:         ||            Поле компьютера:
