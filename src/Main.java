@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    //===============Основной сценарий:=================================================================================
+    //===============Main scenario:=================================================================================
 
     public static void main(String[] args) {
 
@@ -42,13 +42,13 @@ public class Main {
             printField(myFieldShow,enemyFieldShow);
         }
 
-        //последний раз обновляем поле и показываем его:
+        //last time update fields and show them:
         update(myField,myFieldShow);
         updateHideShips(enemyField,enemyFieldShow);
         printField(myFieldShow,enemyFieldShow);
     }
 
-    //===============Вспомогательные методы:============================================================================
+    //===============Helpers:============================================================================
     static boolean STOPGAME = false;
     final static char SHIP = '▄';//▄█
     final static char MISS = '•';
@@ -169,7 +169,6 @@ public class Main {
     static void updateHideShips(char[][] fieldInfo, char[][] fieldShow){
         for(int i = 0; i < fieldInfo.length;i++){
             for(int j = 0; j < fieldInfo[0].length; j ++){
-                //if (fieldInfo[i][j] == '1') fieldShow[i][j] = SHIP;
                 if (fieldInfo[i][j] == 'X') fieldShow[i][j] = HIT;
                 if (fieldInfo[i][j] == MISS) fieldShow[i][j] = MISS;
 
@@ -185,7 +184,7 @@ public class Main {
                 "Например: 1 2 А5 = такая команда поставит вертикально двухпалубник на точки А5 и А6\n" +
                 "2 4 Б6 = такая команда поставит горизонтально четырёхпалубник на точки Б6 В6 Г6 и Д6");
 
-        //Задаём количество доступных для размещения кораблей игроком
+        //Set limit of available ships
         int fourDeck = 1;
         int threeDeck = 2;
         int twoDeck = 3;
@@ -196,17 +195,17 @@ public class Main {
             String temp = scan.nextLine().toUpperCase();
             int orientation, size;
             String  key, key2;
-            boolean postShip; //инициализируется как false
+            boolean postShip; //initialized as false
 
-            //отладка
-            if(temp.equals("СТОП")) break; //выход по требованию
-            //конец отладки
+            //debug command begin
+            if(temp.equals("СТОП")) break; //command for begin shooting
+            //debug command end
 
             try {
-                orientation = Integer.parseInt(temp.substring(0,1)); // Ориентация. Должна быть либо 1 (вертикально), либо 2 (горизонтально)
-                size = Integer.parseInt(temp.substring(2,3)); // Размер корабля. Либо 1, либо 2, либо 3, либо 4
-                key = temp.substring(4,5); // Буква поля
-                key2 = temp.substring(5); // Цифра поля
+                orientation = Integer.parseInt(temp.substring(0,1)); // Orientation. Either 1 (vertical), either 2(horizontal)
+                size = Integer.parseInt(temp.substring(2,3)); // Ship size. Either 1, either 2, either 3, either 4
+                key = temp.substring(4,5); // Field Letter
+                key2 = temp.substring(5); // Field Number
 
                 System.out.println("Пытаемся поместить кораблик");
                 if (size == 1 && oneDeck < 1) throw new Exception("Все доступные кораблики этого вида уже установлены.");
@@ -242,7 +241,7 @@ public class Main {
                 update(myField,myFieldShow);
                 printField(myFieldShow, enemyFieldShow);
 
-                //Если мы установили все доступные кораблики, то можно выходить и начинать перестрелку
+                //If we set al available ships, so we can begin shooting
                 if (oneDeck < 1 && twoDeck < 1 && threeDeck < 1 && fourDeck < 1) break;
                 }
             catch (Exception exception){
@@ -252,8 +251,8 @@ public class Main {
     }
 
     static boolean setShip(char[][] field, int orientation, int size, String keyLetter, String key2Num){
-        //Маски для корабликов:
-        //единичка - сам корабль, нолик - запретное место
+        //Masks for ships:
+        //one is a ship, zero is a unavailable place
 
         char[][] tempShip;
 
@@ -313,8 +312,8 @@ public class Main {
         }
 
         try{
-            //Пытаемся посимвольно переписать наш кораблик в поле
-            //Сначала проверяем, что он не конфликтует
+            //try set our ship
+            //First of all check place
             for (int i = 0; i < tempShip.length; i++){
                 for (int j = 0; j < tempShip[0].length; j++){
                     if ((field[maskColumn.get(key2Num) + i][maskRow.get(keyLetter) + j] == '1' && tempShip[i][j] == '1') ||
@@ -324,15 +323,15 @@ public class Main {
                         throw new Exception();
                 }
             }
-            //Если дошли до этого момента, то не конфликтуем. Пытаемся писать:
+            //if check is good, so we can put our ship
             for (int i = 0; i < tempShip.length; i++){
                 for (int j = 0; j < tempShip[0].length; j++){
                     field[maskColumn.get(key2Num) + i][maskRow.get(keyLetter) + j] = tempShip[i][j];
                 }
             }
-            return true; // сообщаем, что размещение удачно
+            return true; // return, all is good, and we put our ship
         }catch (Exception exception){}
-        return false; // сообщаем, что что-то пошло не так
+        return false; // return, smtng is wrong
     }
 
     static void shoot() {
@@ -348,13 +347,13 @@ public class Main {
                 }
                 if (temp.length() > 2) {
                     key = temp.substring(0, 1).toUpperCase();
-                    key2 = temp.substring(1, 3).toUpperCase(); //второй ключ - десятка, из двух символов
+                    key2 = temp.substring(1, 3).toUpperCase(); //secondkey is ten. It consists of two characters
                 } else {
                     key = temp.substring(0, 1).toUpperCase();
-                    key2 = temp.substring(1, 2).toUpperCase(); //второй ключ - цифра
+                    key2 = temp.substring(1, 2).toUpperCase(); //second key is a number
                 }
 
-                if (maskRow.containsKey(key)) {//если наш первый ключ - ключ по буквам
+                if (maskRow.containsKey(key)) {//if our first key is a Letter
                     System.out.println("Пытаемся попасть в поле " + key + key2);
                     if (enemyField[maskColumn.get(key2) + 1][maskRow.get(key) + 1] == HIT){
                         System.out.println("Сюда уже стреляли! Будь внимательнее в следующий раз. Этот выстрел засчитывается как МИМО!");
@@ -384,8 +383,8 @@ public class Main {
     }
 
         static void compPutShip(){
-            //компьютер пытается разместить корабли используя метод для игрока, но со случайными входными данными
-            //форма:
+            //try to randomly set ships on computers field
+            //form for method:
             //static boolean setShip(char[][] field, int orientation, int size, String keyLetter, String key2Num)
 
             Random random = new Random();
@@ -394,7 +393,6 @@ public class Main {
             int allOK = 0;
             while(allOK !=10) {
                 allOK = 0;
-                clearField(enemyField);
                 for (int i = 0; i < 10; i++) {
                     if (setShip(enemyField, random.nextInt(2) + 1, 4, Letters[random.nextInt(10)], Numbers[random.nextInt(10)])) {
                         allOK++;
@@ -504,7 +502,7 @@ public class Main {
                     surroundShipWithDots(myField,row+1,column+1);
 
                 } else if (myField[row+1][column+1] == MISS || myField[row+1][column+1] == HIT){
-
+                    //if the computer shoots repeatedly in the same field, then we do nothing
                 }
                 else{
                     myField[row+1][column+1] = MISS;
@@ -515,24 +513,22 @@ public class Main {
         }
 
         static boolean whoWin(int shipsNum){
-            if (shipsNum <= 0) return true;
-            else return false;
+            return shipsNum <= 0;
         }
 
-        //возвращаем true если только обнаружили в указанных координатах кораблик и окружили его точками
+        //return true if only in the coordinates is a ship
         static boolean surroundShipWithDots(char[][] field, int keyLetter, int key2Num){
-            //Нам надо проверить, что сверху, снизу, слева и справа нет продолжения корабля
+            //We have to check up, right, down, left are no more ship
             if(field[keyLetter][key2Num] == HIT){
-                //смотрим вокруг корабля
                 lookAroundAndFillTheField(field,keyLetter,key2Num);
             }
             return false;
         }
 
         static boolean lookAroundAndFillTheField (char[][] field, int x, int y){
-        //x и y = координаты указанного поля
+        //x & y = coordinates of field
 
-            //идём к самому правому нижнему краю
+            //looking for the most right place
             while (field[x][y+1] == HIT){
                 y+=1;
             }
@@ -544,7 +540,7 @@ public class Main {
             if (field[x][y+1] == '1') return false;
             if (field[x+1][y] == '1') return false;
 
-            //идём к самому верхнему левому краю
+            //looking for the most LEFT place
             while (field[x][y-1] == HIT){
                 y-=1;
             }
@@ -557,7 +553,7 @@ public class Main {
             if (field[x][y+1] == '1') return false;
             if (field[x+1][y] == '1') return false;
 
-            //Мы точно знаем, что по бокам от нашей точки нет целых кусков кораблей. Можно начинать проходиться по кораблю и закрашивать его
+            //We know for sure that on the sides of our point there are no whole pieces of ships. You can start walking on the ship and paint it around
             fillFieldWithDots (field, x, y);
             while (field[x+1][y] == HIT){
                 x++;
@@ -579,13 +575,5 @@ public class Main {
             if (field[x+1][y-1]!= HIT)     field[x+1][y-1]     = MISS;
             if (field[x+1][y]  != HIT)     field[x+1][y]       = MISS;
             if (field[x+1][y+1]!= HIT)     field[x+1][y+1]     = MISS;
-        }
-
-        static void clearField(char[][] field){
-            for(char[] tmp : field){
-                for(char temp : tmp){
-                    temp = '_';
-                }
-            }
         }
 }
