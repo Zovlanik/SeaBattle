@@ -1,0 +1,32 @@
+Console game "Sea battle" according to the classical rules.
+ The player sets his ships:
+ - one four-deck
+ - two three-deck
+ - three two-deck
+ - four single deck
+ Ships can not be bent, but you can turn them.
+ The game starts automatically when the player places all ships.
+ Ships are arranged by mask: <orientation> <ship size> <coordinate>
+ <orientation> - 1 = vertically, 2 = horizontally
+ <ship size> - 1 = one-deck, 2 = two-deck, 3 = three-deck, 4 = four-deck
+ <coordinate> - coordinate of the first cell of the ship in the format <literal> <number>.
+
+For example: 1 2 A5 = such a command will vertically put a two-deck ship at points A5 and A6
+2 4 Б6 = such a command will put horizontally a four-deck ship at points Б6 В6 Г6 and Д6
+
+After the arrangement of the ships, firing begins directly. For shooting, you need to enter the cell coordinate of the computer field in the format <letter> <digit>.
+For example: A1, к10, б3, etc.
+
+
+      Поле игрока:         ||            Поле компьютера:
+   A Б В Г Д Е Ж З И К     ||          A Б В Г Д Е Ж З И К
+ 1 _ _ _ _ _ _ _ _ _ _     ||        1 _ _ _ _ _ _ _ _ _ _ 
+ 2 _ _ _ _ _ _ _ _ _ _     ||        2 _ _ _ _ _ _ _ _ _ _ 
+ 3 _ _ _ _ _ _ _ _ _ _     ||        3 _ _ _ _ _ _ _ _ _ _ 
+ 4 _ _ _ _ _ _ _ _ _ _     ||        4 _ _ _ _ _ _ _ _ _ _ 
+ 5 _ _ _ _ _ _ _ _ _ _     ||        5 _ _ _ _ _ _ _ _ _ _ 
+ 6 _ _ _ _ _ _ _ _ _ _     ||        6 _ _ _ _ _ _ _ _ _ _ 
+ 7 _ _ _ _ _ _ _ _ _ _     ||        7 _ _ _ _ _ _ _ _ _ _ 
+ 8 _ _ _ _ _ _ _ _ _ _     ||        8 _ _ _ _ _ _ _ _ _ _ 
+ 9 _ _ _ _ _ _ _ _ _ _     ||        9 _ _ _ _ _ _ _ _ _ _ 
+10 _ _ _ _ _ _ _ _ _ _     ||       10 _ _ _ _ _ _ _ _ _ _ 
